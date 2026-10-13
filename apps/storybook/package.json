@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "imports": {
+    "#components/*": "./components/*.tsx",
+    "#lib/*": "./lib/*.ts",
+    "#hooks/*": "./hooks/*.ts"
+  },
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
@@ -23,7 +28,9 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "eslint": "10.9.1",
+    "@tailwindcss/vite": "^4.1.11",
     "storybook": "^10.6.2",
+    "tailwindcss": "^4.1.11",
     "typescript": "7.0.2",
     "vite": "^8.0.0"
   }
