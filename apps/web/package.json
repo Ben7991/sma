@@ -3,8 +3,14 @@
   "version": "1.0.0",
   "type": "module",
   "private": true,
+  "imports": {
+    "#components/*": "./components/*.tsx",
+    "#lib/*": "./lib/*.ts",
+    "#hooks/*": "./hooks/*.ts"
+  },
   "scripts": {
     "dev": "next dev --port 3000",
+    "postinstall": "node ./scripts/link-postcss-deps.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --max-warnings 0",
@@ -14,9 +20,11 @@
   },
   "dependencies": {
     "@repo/ui": "*",
+    "@tailwindcss/postcss": "^4.1.11",
     "next": "16.3.8",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
