@@ -1,159 +1,94 @@
-# Turborepo starter
+# SMA
 
-This Turborepo starter is maintained by the Turborepo core team.
+Sales and operations pretotype built as a TypeScript monorepo. The goal is to validate how a single product can support day-to-day store work: selling, customers, stock, warehouse transfers, and staff access.
 
-## Using this example
+For the full capability write-up, see [docs/pretotype-features.md](./docs/pretotype-features.md).
 
-Run the following command:
+## Pretotype scope
 
-```sh
-npx create-turbo@latest
-```
+### Handle sales
 
-## What's inside?
+End-to-end support for recording revenue and following up on money still owed.
 
-This Turborepo includes the following packages/apps:
+- **Record sales** — Capture sales with customer (when known), line items, pricing, discounts, payment method, and timestamp. Confirm transactions, share receipt summaries, and reflect activity in reports and inventory where applicable.
+- **Track pending payments** — See outstanding balances per customer or sale, support partial payments and payment terms, and record payments against open balances without re-entering the full sale.
 
-### Apps and Packages
+### Manage customers
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+One place for customer identity and context used across sales and payments: profiles, search when selling, and purchase and payment history for front-line staff.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+### Manage inventory
 
-### Utilities
+Control what can be sold at the store and how quantities change over time.
 
-This Turborepo has some additional tools already setup for you:
+- **Restock products** — Increase on-hand quantity with who/when (and optional supplier or document reference); quantities update immediately.
+- **View available stock** — Browse products with live quantities, low-stock signals, and filters by category, location, or level.
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+### Warehouse management
 
-### Build
+Warehouse stock stays separate from store-floor inventory, with traceable movement between them.
 
-To build all apps and packages, run the following command:
+- **Track warehouse availability** — Source of truth for what is in the warehouse (and optional location/bin), distinct from store stock.
+- **Restock store from warehouse** — Transfer quantities in one step with warehouse decrement, store increment, and an audit trail.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### Manage employees
 
-```sh
-cd my-turborepo
-turbo build
-```
+Onboard staff and assign configured roles (e.g. cashier, inventory clerk, manager) that bundle permissions. Role changes apply on new sessions without shared accounts.
 
-Without global `turbo`, use your package manager:
+## Repository layout
 
-```sh
-cd my-turborepo
-npx turbo build
-npm exec turbo build
-npm exec turbo build
-```
+| Path | Purpose |
+|------|---------|
+| `apps/web` | Next.js customer-facing / staff UI |
+| `apps/api` | NestJS API |
+| `apps/storybook` | Component documentation (`@repo/ui`) |
+| `packages/ui` | Shared React components (shadcn/ui) |
+| `packages/eslint-config` | Shared ESLint config |
+| `packages/typescript-config` | Shared TypeScript config |
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+## Prerequisites
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+- Node.js **≥ 24**
+- npm **12** (workspaces)
 
-```sh
-turbo build --filter=docs
-```
+## Getting started
 
-Without global `turbo`:
+Install dependencies from the repository root:
 
 ```sh
-npx turbo build --filter=docs
-npm exec turbo build --filter=docs
-npm exec turbo build --filter=docs
+npm install
 ```
 
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+Run all apps in development (via Turborepo):
 
 ```sh
-cd my-turborepo
-turbo dev
+npm run dev
 ```
 
-Without global `turbo`, use your package manager:
+Run a single workspace:
 
 ```sh
-cd my-turborepo
-npx turbo dev
-npm exec turbo dev
-npm exec turbo dev
+npm run dev --workspace=web
+npm run dev --workspace=api
+npm run dev --workspace=storybook
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Other root scripts:
 
 ```sh
-turbo dev --filter=web
+npm run build          # build all packages/apps
+npm run lint           # lint all packages/apps
+npm run check-types    # TypeScript check across the monorepo
+npm run format         # Prettier
 ```
 
-Without global `turbo`:
+## UI components
+
+Shared UI lives in `@repo/ui`. Add shadcn components from the web app:
 
 ```sh
-npx turbo dev --filter=web
-npm exec turbo dev --filter=web
-npm exec turbo dev --filter=web
+cd apps/web
+npx shadcn@latest add button
 ```
 
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-npm exec turbo login
-npm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-npm exec turbo link
-npm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Components are installed under `packages/ui/src/components/ui/`.
