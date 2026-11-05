@@ -2,7 +2,7 @@
 
 Sales and operations pretotype built as a TypeScript monorepo. The goal is to validate how a single product can support day-to-day store work: selling, customers, stock, warehouse transfers, and staff access.
 
-For the full capability write-up, see [docs/pretotype-features.md](./docs/pretotype-features.md).
+For the full capability write-up, see [docs/pretotype-features.md](./docs/pretotype-features.md). The detailed feature guide, including operating suggestions, is in [docs/features.md](./docs/features.md).
 
 ## Pretotype scope
 

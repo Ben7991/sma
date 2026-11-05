@@ -2,6 +2,14 @@
 
 High-level capability map for the sales and operations pretotype. Each area describes what users need to accomplish and what the system should make visible or actionable.
 
+The detailed description of every feature, and the suggestions around stock, payments, and delivery, is in [features.md](./features.md).
+
+## Scope of this phase
+
+Each tenant runs one store (shop). A tenant can also have warehouses that supply that store. Support for several stores per tenant comes in a later phase, as described in [One shop now, more shops later](./features.md#one-shop-now-more-shops-later).
+
+The pretotype does not show a store picker or store filters. Every sale, payment, stock change, and transfer still records which store or warehouse it belongs to, so adding a second store later does not require changing past records.
+
 ---
 
 ## Handle Sales
@@ -36,7 +44,7 @@ Increase on-hand quantity when new stock arrives (purchase, transfer, or correct
 
 ### View available stocks
 
-Browse products with current on-hand quantities, low-stock indicators, and basic product attributes (SKU, name, unit). Filter or sort by category, location, or stock level so reordering and selling decisions are based on live numbers, not spreadsheets.
+Browse products with current on-hand quantities, low-stock indicators, and basic product attributes (SKU, name, unit). Filter or sort by category, location (the store or a warehouse), or stock level so reordering and selling decisions are based on live numbers, not spreadsheets.
 
 ---
 
